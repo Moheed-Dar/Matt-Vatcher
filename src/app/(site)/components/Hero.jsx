@@ -82,14 +82,13 @@ const getStatusText = (status) => {
 
 export default function HeroSection() {
   /* ============================================================
-     SLIDER IMAGES (5 hero images)
+     SLIDER IMAGES — 4 local hero images (Unsplash URLs removed)
   ============================================================ */
   const heroImages = [
-    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2070&auto=format&fit=crop",
+    "/images/hero1.jpg",
+    "/images/hero2.jpg",
+    "/images/hero3.jpg",
+    "/images/hero4.jpg",
   ];
 
   /* ============================================================
@@ -330,7 +329,7 @@ export default function HeroSection() {
               border: `1px solid ${CYAN}40`,
             }}
           >
-            ( TORONTO'S RUNNING REALTOR@ )
+            ( TORONTO&apos;S RUNNING REALTOR@ )
           </span>
 
           {/* Main Heading */}
@@ -661,7 +660,7 @@ export default function HeroSection() {
             )}
           </div>
 
-          {/* ---------- BOTTOM BAR : 01 —— 05 ---------- */}
+          {/* ---------- BOTTOM BAR : 01 —— 04 ---------- */}
           <div className="absolute inset-x-0 bottom-0 flex h-14 items-center pr-5 md:h-16 md:pr-10">
             <div className="flex items-center gap-3 md:gap-4 pl-1">
               <span className="text-base md:text-lg font-extrabold" style={{ color: DEEP }}>
