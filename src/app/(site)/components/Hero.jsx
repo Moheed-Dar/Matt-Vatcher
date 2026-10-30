@@ -330,7 +330,7 @@ export default function HeroSection() {
               border: `1px solid ${CYAN}40`,
             }}
           >
-            ( Find Your Place )
+            ( TORONTO'S RUNNING REALTOR@ )
           </span>
 
           {/* Main Heading */}
@@ -486,23 +486,6 @@ export default function HeroSection() {
                   </div>
                 ))}
 
-                {/* Floating badge */}
-                <div
-                  className="absolute right-4 top-4 flex items-center gap-2 rounded-full px-3 py-1.5 shadow-lg backdrop-blur-md sm:right-5 sm:top-5 sm:px-4 sm:py-2"
-                  style={{
-                    backgroundColor: `${PINK}E6`,
-                    color: DEEP,
-                  }}
-                >
-                  <span
-                    className="h-2 w-2 animate-pulse rounded-full"
-                    style={{ backgroundColor: CYAN }}
-                  />
-                  <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-[0.15em]">
-                    250+ New Listings
-                  </span>
-                </div>
-
                 {/* Building icon */}
                 <div
                   className="absolute left-4 bottom-4 flex items-center gap-2 rounded-full px-3 py-1.5 backdrop-blur-md sm:left-5 sm:bottom-5 sm:px-4 sm:py-2"
@@ -616,23 +599,6 @@ export default function HeroSection() {
                   />
                 </div>
               ))}
-
-              {/* Floating badge */}
-              <div
-                className="absolute right-4 top-4 md:right-5 md:top-5 flex items-center gap-2 rounded-full px-3 py-1.5 md:px-4 md:py-2 shadow-lg backdrop-blur-md"
-                style={{
-                  backgroundColor: `${PINK}E6`,
-                  color: DEEP,
-                }}
-              >
-                <span
-                  className="h-2 w-2 animate-pulse rounded-full"
-                  style={{ backgroundColor: CYAN }}
-                />
-                <span className="text-[9px] md:text-[10px] font-extrabold uppercase tracking-[0.15em]">
-                  250+ New Listings
-                </span>
-              </div>
 
               {/* Building icon */}
               <div

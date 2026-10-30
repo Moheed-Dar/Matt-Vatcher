@@ -6,32 +6,30 @@ import Link from "next/link";
 import {
   Phone,
   Mail,
-  Send,
   ArrowUpRight,
   ArrowUp,
   MapPin,
-  Sparkles,
+  Send,
   Loader2,
   CheckCircle2,
   AlertCircle,
 } from "lucide-react";
-import { subscribe } from "@/lib/subscribers/api"; // ✅ Subscribe API
+import { subscribe } from "@/lib/subscribers/api";
 
 // ============================================
-// NEW 4-COLOR SCHEME (matches About section)
-// Purple | Cyan | Pink | Magenta
+// COLOR SCHEME
 // ============================================
 const PURPLE = "#3C1E74";
 const CYAN = "#5CE1E6";
 const PINK = "#FFA7E4";
 const MAGENTA = "#B462B6";
-const DARK = "#1E0F3D"; // derived dark-purple base for backgrounds
+const DARK = "#1E0F3D";
 
 export default function Footer() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [subscribing, setSubscribing] = useState(false);
-  const [subscribeMsg, setSubscribeMsg] = useState(null); // { type: 'success' | 'error', text }
+  const [subscribeMsg, setSubscribeMsg] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const currentYear = new Date().getFullYear();
 
@@ -43,14 +41,10 @@ export default function Footer() {
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-  // ============================================
-  // ✅ SUBSCRIBE HANDLER
-  // ============================================
   const handleSubscribe = async (e) => {
     e.preventDefault();
     setSubscribeMsg(null);
 
-    // ---- Client-side validation ----
     if (!name.trim() || name.trim().length < 2) {
       setSubscribeMsg({ type: "error", text: "Please enter your name" });
       return;
@@ -61,7 +55,6 @@ export default function Footer() {
     }
 
     setSubscribing(true);
-
     const res = await subscribe({ name: name.trim(), email: email.trim() });
 
     if (res.success) {
@@ -71,7 +64,6 @@ export default function Footer() {
       });
       setName("");
       setEmail("");
-      // Success message 6 sec baad auto-hide
       setTimeout(() => setSubscribeMsg(null), 6000);
     } else {
       setSubscribeMsg({
@@ -79,23 +71,39 @@ export default function Footer() {
         text: res.message || "Something went wrong. Please try again.",
       });
     }
-
     setSubscribing(false);
   };
 
-  const footerLinks = {
-    company: [
-      { name: "Home", href: "/" },
-      { name: "About", href: "/about" },
-      { name: "Properties", href: "/properties" },
-      { name: "Services", href: "/services" },
-      { name: "Contact", href: "/contact" },
-    ],
-    resources: [{ name: "Blog", href: "/blogs" }],
-  };
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Properties", href: "/properties" },
+    { name: "Services", href: "/services" },
+    { name: "Blog", href: "/blogs" },
+    { name: "Contact", href: "/contact" },
+  ];
 
-  // ✅ Only LinkedIn — consistent with About section
-  // TODO: Update with Matt Vatcher's actual LinkedIn URL
+  const contactInfo = [
+    {
+      icon: Phone,
+      label: "Phone",
+      value: "437-494-5181",
+      href: "tel:+437-494-5181",
+    },
+    {
+      icon: Mail,
+      label: "Email",
+      value: "matt@torontosrunningrealtor.com",
+      href: "mailto:matt@torontosrunningrealtor.com",
+    },
+    {
+      icon: MapPin,
+      label: "Location",
+      value: "Beaches, East York, Scarborough, Toronto",
+      href: null,
+    },
+  ];
+
   const socialLinks = [
     {
       name: "LinkedIn",
@@ -113,572 +121,413 @@ export default function Footer() {
       className="relative overflow-hidden text-white"
       style={{ backgroundColor: DARK }}
     >
-      {/* ===== LAYERED BACKGROUND (DARK PURPLE) ===== */}
-      <div className="absolute inset-0 z-0">
+      {/* ============ BACKGROUND ============ */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <div
           className="absolute inset-0"
           style={{
-            background: `
-              linear-gradient(0deg, 
-                #150A2B 0%, 
-                #1A0C36 30%, 
-                ${DARK} 55%, 
-                #271451 80%,
-                #31196A 100%
-              )
-            `,
+            background: `linear-gradient(180deg, ${DARK} 0%, #150A2B 100%)`,
           }}
         />
-
         <div
-          className="absolute inset-x-0 top-0 h-112.5 pointer-events-none"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-175 h-50 rounded-full"
           style={{
-            background: `linear-gradient(180deg, ${CYAN} 0%, ${CYAN}B3 25%, ${CYAN}66 55%, transparent 100%)`,
-          }}
-        />
-
-        <div
-          className="absolute -top-24 left-1/2 -translate-x-1/2 w-250 h-96 rounded-full pointer-events-none"
-          style={{
-            background: `radial-gradient(circle, ${CYAN}CC 0%, ${CYAN}66 45%, transparent 70%)`,
+            background: `radial-gradient(ellipse, ${CYAN}30 0%, transparent 70%)`,
             filter: "blur(60px)",
           }}
         />
-
         <div
-          className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full pointer-events-none"
+          className="absolute bottom-0 right-0 w-100 h-100 rounded-full"
           style={{
-            background: `radial-gradient(circle, ${MAGENTA}25 0%, transparent 70%)`,
+            background: `radial-gradient(circle, ${MAGENTA}15 0%, transparent 70%)`,
             filter: "blur(80px)",
           }}
         />
-
         <div
-          className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full pointer-events-none"
-          style={{
-            background: `radial-gradient(circle, ${CYAN}15 0%, transparent 70%)`,
-            filter: "blur(80px)",
-          }}
-        />
-
-        <div
-          className="absolute inset-0 pointer-events-none opacity-[0.035]"
-          style={{
-            backgroundImage: `url('/images/navlogo1.png')`,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center center",
-            backgroundSize: "45% auto",
-            mixBlendMode: "screen",
-          }}
-        />
-
-        <div
-          className="absolute inset-0 opacity-[0.04]"
+          className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage: `radial-gradient(circle at 1px 1px, ${CYAN} 1px, transparent 0)`,
-            backgroundSize: "48px 48px",
+            backgroundSize: "40px 40px",
           }}
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* ===== SECTION 1: LARGE CTA BANNER (Hidden on Mobile) ===== */}
-        <div
-          className="relative mt-12 sm:mt-16 mb-16 rounded-3xl overflow-hidden hidden md:block"
-          style={{
-            background: `linear-gradient(135deg, ${MAGENTA} 0%, ${DARK} 70%, ${CYAN} 140%)`,
-            border: `1px solid ${CYAN}20`,
-          }}
-        >
-          <div
-            className="absolute -top-20 -right-20 w-64 h-64 rounded-full opacity-30 pointer-events-none"
-            style={{
-              background: `radial-gradient(circle, ${CYAN} 0%, transparent 70%)`,
-            }}
-          />
-          <div
-            className="absolute -bottom-16 -left-16 w-48 h-48 rounded-full opacity-20 pointer-events-none"
-            style={{
-              background: `radial-gradient(circle, ${PINK} 0%, transparent 70%)`,
-            }}
-          />
+      {/* ============ TOP ACCENT LINE ============ */}
+      <div
+        className="relative z-10 h-0.5 w-full"
+        style={{
+          background: `linear-gradient(to right, transparent, ${MAGENTA}, ${CYAN}, ${PINK}, transparent)`,
+        }}
+      />
 
-          <div className="relative px-6 sm:px-10 lg:px-16 py-10 sm:py-14 lg:py-16 flex flex-col lg:flex-row items-center justify-between gap-6">
-            <div className="text-center lg:text-left max-w-2xl">
-              <div
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] sm:text-xs font-extrabold uppercase tracking-widest mb-3"
+      {/* ============ MAIN CONTAINER ============ */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        {/* ============ LOGO + CTA ROW ============ */}
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 pb-10 mb-10 border-b" style={{ borderColor: `${CYAN}15` }}>
+          {/* ✅ FIXED LOGO — bulletproof approach */}
+          <div className="flex flex-col gap-4">
+            <div
+              className="relative"
+              style={{ height: "60px", width: "200px" }}
+            >
+              <Image
+                src="/images/mettlogo11.png"
+                alt="Matt Vatcher — Toronto's Running Realtor"
+                fill
                 style={{
-                  backgroundColor: `${CYAN}20`,
-                  color: CYAN,
-                  border: `1px solid ${CYAN}30`,
+                  objectFit: "contain",
+                  objectPosition: "left center",
                 }}
-              >
-                <Sparkles size={12} />
-                Let's Start Your Journey
-              </div>
-              <h3 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight tracking-[-0.02em]">
-                Ready to find your <br className="hidden sm:block" />
-                <span style={{ color: CYAN }}>next chapter?</span>
-              </h3>
-              <p
-                className="mt-3 text-sm sm:text-base max-w-md mx-auto lg:mx-0"
-                style={{ color: `${CYAN}CC` }}
-              >
-                Whether you're downsizing, upgrading, or investing — I'm here
-                to guide you every step of the way.
-              </p>
+                priority
+                sizes="200px"
+              />
             </div>
+          </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
-              {/* TODO: Update with Matt's booking calendar link */}
-              <Link
-                href="https://calendar.app.google/zf9eeGFTRRb44AKU6"
-                className="group inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-full text-sm font-extrabold transition-all duration-300 hover:scale-105 shadow-xl"
-                style={{
-                  backgroundColor: "#FFFFFF",
-                  color: PURPLE,
-                }}
-              >
-                Book a Consultation
-                <ArrowUpRight
-                  size={18}
-                  className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
-                />
-              </Link>
-              <Link
-                href="/properties"
-                className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-full text-sm font-extrabold transition-all duration-300 hover:scale-105"
-                style={{
-                  backgroundColor: `${CYAN}15`,
-                  color: CYAN,
-                  border: `1px solid ${CYAN}40`,
-                }}
-              >
-                Browse Properties
-              </Link>
-            </div>
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+            <Link
+              href="https://calendar.app.google/zf9eeGFTRRb44AKU6"
+              className="group inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 hover:scale-105"
+              style={{
+                background: `linear-gradient(135deg, ${MAGENTA}, ${PURPLE})`,
+                color: "#FFFFFF",
+                boxShadow: `0 6px 20px ${MAGENTA}40`,
+              }}
+            >
+              Book a Consultation
+              <ArrowUpRight
+                size={16}
+                strokeWidth={2.5}
+                className="group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform"
+              />
+            </Link>
+            <Link
+              href="/properties"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 hover:scale-105"
+              style={{
+                backgroundColor: `${CYAN}10`,
+                color: CYAN,
+                border: `1px solid ${CYAN}30`,
+              }}
+            >
+              Browse Properties
+              <ArrowUpRight size={16} strokeWidth={2.5} />
+            </Link>
           </div>
         </div>
 
-        {/* ===== SECTION 2: MAIN FOOTER GRID ===== */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 mb-12 pt-12 md:pt-0">
-          {/* LEFT: Brand Column - 6/12 cols */}
-          <div className="lg:col-span-6 flex flex-col">
-            <div className="mb-6">
-              <Image
-                src="/images/mettlogo11.png"
-                alt="Matt Vatcher Logo"
-                width={180}
-                height={55}
-                className="object-contain"
-                style={{ width: "auto", height: "auto" }}
-                priority
-              />
+        {/* ============ 4-COLUMN GRID ============ */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+          {/* ====== COL 1: NAVIGATION ====== */}
+          <div>
+            <h4
+              className="text-xs uppercase tracking-[0.2em] font-extrabold mb-5"
+              style={{ color: "#FFFFFF" }}
+            >
+              Navigation
+            </h4>
+            <ul className="space-y-3">
+              {navLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="group flex items-center gap-2 text-sm transition-all duration-300"
+                    style={{ color: `${CYAN}99` }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#FFFFFF")}
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.color = `${CYAN}99`)
+                    }
+                  >
+                    <span
+                      className="w-1.5 h-1.5 rounded-full transition-all duration-300 group-hover:scale-150"
+                      style={{ backgroundColor: PINK }}
+                    />
+                    <span className="group-hover:translate-x-1 transition-transform duration-300">
+                      {link.name}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* ====== COL 2: CONTACT ====== */}
+          <div>
+            <h4
+              className="text-xs uppercase tracking-[0.2em] font-extrabold mb-5"
+              style={{ color: "#FFFFFF" }}
+            >
+              Contact
+            </h4>
+            <ul className="space-y-4">
+              {contactInfo.map((info, index) => {
+                const Icon = info.icon;
+                const content = (
+                  <div className="flex items-start gap-3">
+                    <div
+                      className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
+                      style={{
+                        backgroundColor: `${MAGENTA}20`,
+                        color: CYAN,
+                      }}
+                    >
+                      <Icon size={15} />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p
+                        className="text-[10px] uppercase tracking-wider font-bold mb-0.5"
+                        style={{ color: PINK }}
+                      >
+                        {info.label}
+                      </p>
+                      <p className="text-sm font-semibold text-white wrap-break-word">
+                        {info.value}
+                      </p>
+                    </div>
+                  </div>
+                );
+                return (
+                  <li key={index}>
+                    {info.href ? (
+                      <a
+                        href={info.href}
+                        className="block transition-all duration-300 hover:-translate-x-1"
+                      >
+                        {content}
+                      </a>
+                    ) : (
+                      content
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          {/* ====== COL 3: CONNECT ====== */}
+          <div>
+            <h4
+              className="text-xs uppercase tracking-[0.2em] font-extrabold mb-5"
+              style={{ color: "#FFFFFF" }}
+            >
+              Connect
+            </h4>
+
+            <p
+              className="text-xs leading-relaxed mb-4"
+              style={{ color: `${CYAN}99` }}
+            >
+              Follow along on social media for the latest listings and market
+              updates.
+            </p>
+
+            <div className="flex items-center gap-2.5 mb-6">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.name}
+                  className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-0.5"
+                  style={{
+                    backgroundColor: `${CYAN}12`,
+                    border: `1px solid ${CYAN}30`,
+                    color: CYAN,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = MAGENTA;
+                    e.currentTarget.style.borderColor = MAGENTA;
+                    e.currentTarget.style.color = "#FFFFFF";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = `${CYAN}12`;
+                    e.currentTarget.style.borderColor = `${CYAN}30`;
+                    e.currentTarget.style.color = CYAN;
+                  }}
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+
+            {/* Quick CTA */}
+            <div
+              className="p-4 rounded-xl"
+              style={{
+                backgroundColor: `${CYAN}08`,
+                border: `1px solid ${CYAN}15`,
+              }}
+            >
+              <p
+                className="text-[10px] uppercase tracking-wider font-bold mb-1"
+                style={{ color: PINK }}
+              >
+                Quick Question?
+              </p>
+              <p className="text-xs mb-3" style={{ color: `${CYAN}B0` }}>
+                Let&apos;s talk about your real estate goals.
+              </p>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-1.5 text-xs font-bold transition-all duration-300 hover:gap-2.5"
+                style={{ color: CYAN }}
+              >
+                Reach Out
+                <ArrowUpRight size={12} strokeWidth={2.5} />
+              </Link>
+            </div>
+          </div>
+
+          {/* ====== COL 4: NEWSLETTER ====== */}
+          <div>
+            <h4
+              className="text-xs uppercase tracking-[0.2em] font-extrabold mb-5"
+              style={{ color: "#FFFFFF" }}
+            >
+              Newsletter
+            </h4>
+
+            <div className="flex items-center gap-2 mb-3">
+              <Send size={14} style={{ color: PINK }} />
+              <p
+                className="text-[10px] uppercase tracking-[0.2em] font-bold"
+                style={{ color: PINK }}
+              >
+                Stay Updated
+              </p>
             </div>
 
             <p
-              className="text-sm sm:text-base leading-relaxed mb-6 max-w-md"
-              style={{ color: `${CYAN}CC` }}
+              className="text-xs leading-relaxed mb-4"
+              style={{ color: `${CYAN}99` }}
             >
-              Helping homeowners, buyers and sellers across the Beaches, East
-              York, Scarborough and the rest of Toronto move to the next chapter
-              of their life — with thoughtful guidance, local knowledge, and a
-              real estate experience built on trust, kindness, and connection.
+              Market insights, new listings &amp; tips delivered monthly.
             </p>
 
-            {/* Contact Mini Cards */}
-            <div className="space-y-3 mb-6">
-              <a
-                href="tel:+14169964489"
-                className="group flex items-center gap-3 p-3 rounded-xl transition-all duration-300 hover:-translate-x-1"
+            <form onSubmit={handleSubscribe} className="space-y-2.5">
+              <input
+                type="text"
+                placeholder="Your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                disabled={subscribing}
+                required
+                minLength={2}
+                maxLength={100}
+                className="w-full rounded-lg py-2.5 px-4 text-sm text-white placeholder-white/40 focus:outline-none transition-all duration-300 disabled:opacity-50"
                 style={{
                   backgroundColor: `${CYAN}08`,
-                  border: `1px solid ${CYAN}15`,
+                  border: `1px solid ${CYAN}20`,
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = `${MAGENTA}20`;
-                  e.currentTarget.style.borderColor = `${MAGENTA}40`;
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = CYAN;
+                  e.currentTarget.style.boxShadow = `0 0 0 2px ${CYAN}20`;
                 }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = `${CYAN}08`;
-                  e.currentTarget.style.borderColor = `${CYAN}15`;
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = `${CYAN}20`;
+                  e.currentTarget.style.boxShadow = "none";
                 }}
-              >
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-colors"
-                  style={{
-                    backgroundColor: `${MAGENTA}25`,
-                    color: CYAN,
-                  }}
-                >
-                  <Phone size={16} />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-[10px] uppercase tracking-wider font-bold" style={{ color: PINK }}>
-                    Call Anytime
-                  </p>
-                  <p className="text-sm font-semibold text-white truncate">
-                    +1 (416) 996-4489
-                  </p>
-                </div>
-              </a>
-
-              <a
-                href="mailto:matt@torontosrunningrealtor.com"
-                className="group flex items-center gap-3 p-3 rounded-xl transition-all duration-300 hover:-translate-x-1"
+              />
+              <input
+                type="email"
+                placeholder="your@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={subscribing}
+                required
+                maxLength={200}
+                className="w-full rounded-lg py-2.5 px-4 text-sm text-white placeholder-white/40 focus:outline-none transition-all duration-300 disabled:opacity-50"
                 style={{
                   backgroundColor: `${CYAN}08`,
-                  border: `1px solid ${CYAN}15`,
+                  border: `1px solid ${CYAN}20`,
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = `${MAGENTA}20`;
-                  e.currentTarget.style.borderColor = `${MAGENTA}40`;
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = CYAN;
+                  e.currentTarget.style.boxShadow = `0 0 0 2px ${CYAN}20`;
                 }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = `${CYAN}08`;
-                  e.currentTarget.style.borderColor = `${CYAN}15`;
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = `${CYAN}20`;
+                  e.currentTarget.style.boxShadow = "none";
                 }}
-              >
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-colors"
-                  style={{
-                    backgroundColor: `${MAGENTA}25`,
-                    color: CYAN,
-                  }}
-                >
-                  <Mail size={16} />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-[10px] uppercase tracking-wider font-bold" style={{ color: PINK }}>
-                    Email Me
-                  </p>
-                  <p className="text-sm font-semibold text-white truncate">
-                    matt@torontosrunningrealtor.com
-                  </p>
-                </div>
-              </a>
-
-              <div
-                className="flex items-center gap-3 p-3 rounded-xl"
+              />
+              <button
+                type="submit"
+                disabled={subscribing}
+                className="w-full py-2.5 px-4 rounded-lg text-sm font-bold text-white transition-all duration-300 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
                 style={{
-                  backgroundColor: `${CYAN}08`,
-                  border: `1px solid ${CYAN}15`,
+                  background: `linear-gradient(135deg, ${MAGENTA}, ${PURPLE})`,
+                  boxShadow: `0 4px 14px ${MAGENTA}40`,
                 }}
+                aria-label="Subscribe"
               >
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
-                  style={{
-                    backgroundColor: `${MAGENTA}25`,
-                    color: CYAN,
-                  }}
-                >
-                  <MapPin size={16} />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-[10px] uppercase tracking-wider font-bold" style={{ color: PINK }}>
-                    Serving Area
-                  </p>
-                  <p className="text-sm font-semibold text-white truncate">
-                    BEACHES, EAST YORK, SCARBOROUGH, TORONTO
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Social */}
-            <div>
-              <p className="text-[10px] uppercase tracking-[0.2em] font-bold mb-3" style={{ color: CYAN }}>
-                Follow Along
-              </p>
-              <div className="flex items-center gap-2.5">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.name}
-                    className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:-translate-y-0.5"
-                    style={{
-                      backgroundColor: `${CYAN}15`,
-                      border: `1px solid ${CYAN}30`,
-                      color: CYAN,
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = MAGENTA;
-                      e.currentTarget.style.borderColor = MAGENTA;
-                      e.currentTarget.style.color = "#FFFFFF";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = `${CYAN}15`;
-                      e.currentTarget.style.borderColor = `${CYAN}30`;
-                      e.currentTarget.style.color = CYAN;
-                    }}
-                  >
-                    {social.icon}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* RIGHT: Links Columns - 6/12 cols, 2-column layout */}
-          <div className="lg:col-span-6 grid grid-cols-2 gap-8 sm:gap-6">
-            {/* Column 1: Company */}
-            <div>
-              <h4
-                className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-extrabold mb-5"
-                style={{ color: "#FFFFFF" }}
-              >
-                <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: PINK }} />
-                Company
-              </h4>
-              <ul className="space-y-3">
-                {footerLinks.company.map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      className="group flex items-center gap-2 text-sm transition-all duration-300"
-                      style={{ color: `${CYAN}B0` }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = "#FFFFFF")}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = `${CYAN}B0`)}
-                    >
-                      <ArrowUpRight
-                        size={12}
-                        className="opacity-0 group-hover:opacity-100 -rotate-45 group-hover:rotate-0 transition-all duration-300"
-                        style={{ color: PINK }}
-                      />
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">
-                        {link.name}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Column 2: Resources */}
-            <div>
-              <h4
-                className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-extrabold mb-5"
-                style={{ color: "#FFFFFF" }}
-              >
-                <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: CYAN }} />
-                Resources
-              </h4>
-              <ul className="space-y-3">
-                {footerLinks.resources.map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      className="group flex items-center gap-2 text-sm transition-all duration-300"
-                      style={{ color: `${CYAN}B0` }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = "#FFFFFF")}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = `${CYAN}B0`)}
-                    >
-                      <ArrowUpRight
-                        size={12}
-                        className="opacity-0 group-hover:opacity-100 -rotate-45 group-hover:rotate-0 transition-all duration-300"
-                        style={{ color: CYAN }}
-                      />
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">
-                        {link.name}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Quick Contact CTA under Resources for balance */}
-              <div
-                className="mt-6 p-4 rounded-xl"
-                style={{
-                  backgroundColor: `${CYAN}08`,
-                  border: `1px solid ${CYAN}15`,
-                }}
-              >
-                <p
-                  className="text-[10px] uppercase tracking-wider font-bold mb-1"
-                  style={{ color: PINK }}
-                >
-                  Quick Question?
-                </p>
-                <p className="text-sm mb-3" style={{ color: `${CYAN}CC` }}>
-                  Let's talk about your real estate goals.
-                </p>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-1.5 text-xs font-extrabold transition-all duration-300 hover:gap-2.5"
-                  style={{ color: CYAN }}
-                >
-                  Reach Out
-                  <ArrowUpRight size={12} />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ===== SECTION 3: NEWSLETTER CARD (✅ SUBSCRIBE IMPLEMENTED) ===== */}
-        <div
-          className="relative rounded-2xl overflow-hidden mb-12"
-          style={{
-            backgroundColor: `${CYAN}08`,
-            border: `1px solid ${CYAN}20`,
-          }}
-        >
-          <div
-            className="absolute top-0 left-0 w-full h-0.5"
-            style={{
-              background: `linear-gradient(to right, transparent, ${CYAN}, ${MAGENTA}, transparent)`,
-            }}
-          />
-          <div
-            className="absolute -right-20 -top-20 w-64 h-64 rounded-full opacity-20 pointer-events-none"
-            style={{
-              background: `radial-gradient(circle, ${MAGENTA} 0%, transparent 70%)`,
-            }}
-          />
-
-          <div className="relative px-5 sm:px-8 lg:px-12 py-6 sm:py-8 flex flex-col md:flex-row items-start md:items-center gap-5">
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-2">
-                <Send size={16} style={{ color: PINK }} />
-                <p className="text-[10px] uppercase tracking-[0.2em] font-extrabold" style={{ color: PINK }}>
-                  Newsletter
-                </p>
-              </div>
-              <h4 className="text-lg sm:text-xl font-extrabold mb-1" style={{ color: "#FFFFFF" }}>
-                Stay Updated with Toronto Real Estate
-              </h4>
-              <p className="text-xs sm:text-sm" style={{ color: `${CYAN}B0` }}>
-                Get market insights, new listings, and tips delivered monthly.
-              </p>
-            </div>
-
-            {/* ✅ SUBSCRIBE FORM — Name + Email */}
-            <div className="w-full md:w-auto md:min-w-105">
-              <form onSubmit={handleSubscribe} className="space-y-2.5">
-                <div className="flex flex-col sm:flex-row gap-2">
-                  {/* Name Input */}
-                  <input
-                    type="text"
-                    placeholder="Your name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    disabled={subscribing}
-                    required
-                    minLength={2}
-                    maxLength={100}
-                    className="flex-1 sm:w-44 rounded-full py-3 px-5 text-sm text-white placeholder-white/40 focus:outline-none transition-all duration-300 disabled:opacity-50"
-                    style={{
-                      backgroundColor: `${CYAN}10`,
-                      border: `1px solid ${CYAN}25`,
-                    }}
-                    onFocus={(e) => {
-                      e.currentTarget.style.borderColor = CYAN;
-                      e.currentTarget.style.boxShadow = `0 0 0 3px ${CYAN}25`;
-                    }}
-                    onBlur={(e) => {
-                      e.currentTarget.style.borderColor = `${CYAN}25`;
-                      e.currentTarget.style.boxShadow = "none";
-                    }}
-                  />
-
-                  {/* Email Input */}
-                  <input
-                    type="email"
-                    placeholder="your@email.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    disabled={subscribing}
-                    required
-                    maxLength={200}
-                    className="flex-1 sm:w-52 rounded-full py-3 px-5 text-sm text-white placeholder-white/40 focus:outline-none transition-all duration-300 disabled:opacity-50"
-                    style={{
-                      backgroundColor: `${CYAN}10`,
-                      border: `1px solid ${CYAN}25`,
-                    }}
-                    onFocus={(e) => {
-                      e.currentTarget.style.borderColor = CYAN;
-                      e.currentTarget.style.boxShadow = `0 0 0 3px ${CYAN}25`;
-                    }}
-                    onBlur={(e) => {
-                      e.currentTarget.style.borderColor = `${CYAN}25`;
-                      e.currentTarget.style.boxShadow = "none";
-                    }}
-                  />
-
-                  {/* Subscribe Button */}
-                  <button
-                    type="submit"
-                    disabled={subscribing}
-                    className="shrink-0 px-5 sm:px-6 py-3 rounded-full text-sm font-extrabold text-white transition-all duration-300 hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
-                    style={{
-                      background: `linear-gradient(135deg, ${MAGENTA}, ${PURPLE})`,
-                      boxShadow: `0 6px 20px ${MAGENTA}50`,
-                    }}
-                    aria-label="Subscribe"
-                  >
-                    {subscribing ? (
-                      <>
-                        <Loader2 size={14} className="animate-spin" />
-                        Subscribing...
-                      </>
-                    ) : (
-                      <>
-                        Subscribe
-                        <ArrowUpRight size={14} />
-                      </>
-                    )}
-                  </button>
-                </div>
-
-                {/* ✅ Success / Error Message */}
-                {subscribeMsg && (
-                  <div
-                    className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium"
-                    style={{
-                      backgroundColor:
-                        subscribeMsg.type === "success"
-                          ? `${CYAN}15`
-                          : "rgba(239, 68, 68, 0.12)",
-                      border: `1px solid ${
-                        subscribeMsg.type === "success"
-                          ? `${CYAN}40`
-                          : "rgba(239, 68, 68, 0.3)"
-                      }`,
-                      color: subscribeMsg.type === "success" ? CYAN : "#fca5a5",
-                    }}
-                  >
-                    {subscribeMsg.type === "success" ? (
-                      <CheckCircle2 size={13} className="shrink-0" />
-                    ) : (
-                      <AlertCircle size={13} className="shrink-0" />
-                    )}
-                    {subscribeMsg.text}
-                  </div>
+                {subscribing ? (
+                  <>
+                    <Loader2 size={14} className="animate-spin" />
+                    Subscribing...
+                  </>
+                ) : (
+                  <>
+                    Subscribe
+                    <ArrowUpRight size={14} strokeWidth={2.5} />
+                  </>
                 )}
-              </form>
-            </div>
+              </button>
+
+              {subscribeMsg && (
+                <div
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium"
+                  style={{
+                    backgroundColor:
+                      subscribeMsg.type === "success"
+                        ? `${CYAN}12`
+                        : "rgba(239, 68, 68, 0.10)",
+                    border: `1px solid ${
+                      subscribeMsg.type === "success"
+                        ? `${CYAN}40`
+                        : "rgba(239, 68, 68, 0.30)"
+                    }`,
+                    color: subscribeMsg.type === "success" ? CYAN : "#fca5a5",
+                  }}
+                >
+                  {subscribeMsg.type === "success" ? (
+                    <CheckCircle2 size={13} className="shrink-0" />
+                  ) : (
+                    <AlertCircle size={13} className="shrink-0" />
+                  )}
+                  {subscribeMsg.text}
+                </div>
+              )}
+            </form>
           </div>
         </div>
 
-        {/* ===== SECTION 4: FINAL COPYRIGHT LINE (LAST) ===== */}
+        {/* ============ BOTTOM BAR ============ */}
         <div
-          className="pt-6 pb-4 flex flex-col items-center"
+          className="mt-10 pt-6 flex flex-col sm:flex-row items-center justify-center gap-2 text-center"
           style={{ borderTop: `1px solid ${CYAN}15` }}
         >
-          <p
-            className="text-xs sm:text-sm transition-colors text-center"
-            style={{ color: `${CYAN}80` }}
+          <Link
+            href="https://leatonic.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold transition-all duration-300 hover:gap-2"
+            style={{ color: `${CYAN}99` }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = PINK)}
+            onMouseLeave={(e) => (e.currentTarget.style.color = `${CYAN}99`)}
           >
-            © {currentYear} Matt Vatcher. All rights reserved.
-          </p>
+            <span>© {currentYear} Leatonic. All rights reserved.</span>
+            <ArrowUpRight
+              size={12}
+              strokeWidth={2.5}
+              className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+            />
+          </Link>
         </div>
       </div>
 
-      {/* SCROLL TO TOP BUTTON */}
+      {/* ============ FLOATING SCROLL-TO-TOP ============ */}
       <button
         onClick={scrollToTop}
         className={`fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full text-white flex items-center justify-center transition-all duration-300 hover:scale-110 ${

@@ -183,9 +183,9 @@ export default function About() {
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight max-w-4xl mx-auto tracking-[-0.02em]"
             style={{ color: PURPLE }}
           >
-            Helping you move to the{" "}
+            Getting clients across the{" "}
             <span className="relative inline-block" style={{ color: PURPLE }}>
-              next chapter of your life
+              buying and selling
               <svg
                 className="absolute -bottom-1 left-0 w-full"
                 height="8"
@@ -201,9 +201,8 @@ export default function About() {
                   opacity="0.8"
                 />
               </svg>
-            </span>
-            , with a focus on your needs, expert guidance, and a{" "}
-            <span style={{ color: MAGENTA }}>smooth, stress-free buying &amp; selling experience.</span>
+            </span>{" "}
+            <span style={{ color: MAGENTA }}>finish line.</span>
           </h2>
         </div>
 
@@ -415,7 +414,7 @@ export default function About() {
 
                 {/* Phone - Separate Line */}
                 <a
-                  href="tel:+14169964489"
+                  href="tel:437-494-5181"
                   className="hover:scale-105 transition-all flex items-center gap-2 group"
                   style={{ color: "#FFFFFF" }}
                 >
@@ -442,7 +441,7 @@ export default function About() {
                     </svg>
                   </span>
                   <span className="group-hover:underline" style={{ color: "#FFFFFF" }}>
-                    +1 (416) 996-4489
+                    437-494-5181
                   </span>
                 </a>
 
@@ -603,7 +602,7 @@ export default function About() {
                     style={{ backgroundColor: PINK }}
                   />
                   <p className="text-[10px] sm:text-xs font-bold uppercase tracking-wider" style={{ color: CYAN }}>
-                    Realtor • Real Estate Homeward
+                   TORONTO'S RUNNING REALTOR@ REAL ESTATE HOMEWARD
                   </p>
                 </div>
               </motion.div>

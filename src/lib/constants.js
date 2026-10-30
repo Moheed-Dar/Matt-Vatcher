@@ -14,8 +14,8 @@ export const NAV_LINKS = {
 };
 
 export const CONTACT_INFO = {
-   phone: "+14169964489",
-  phoneHref: "tel:+14169964489",
+   phone: "437-494-5181",
+  phoneHref: "tel:437-494-5181",
   email: "Matt Vatcher@Matt VatcherConsultant.ca",
   emailHref: "Matt Vatcher@Matt VatcherConsultant.ca",
 };
