@@ -39,10 +39,10 @@ export default function About() {
   const bioRef = useRef(null);
 
   const images = [
-    { src: "/images/about5up.jpg", alt: "Toronto Real Estate 1" },
-    { src: "/images/about1up.jpg", alt: "Toronto Real Estate 2" },
-    { src: "/images/about3up.jpg", alt: "Toronto Real Estate 3" },
-    { src: "/images/about2up.jpg", alt: "Toronto Real Estate 4" },
+    { src: "/images/aboutcard1.jpg", alt: "Toronto Real Estate 1" },
+    { src: "/images/aboutcard2.jpg", alt: "Toronto Real Estate 2" },
+    { src: "/images/aboutcard3.jpg", alt: "Toronto Real Estate 3" },
+    { src: "/images/aboutcard4.jpg", alt: "Toronto Real Estate 4" },
   ];
 
   // Instagram & Facebook social links

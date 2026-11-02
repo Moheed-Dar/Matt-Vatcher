@@ -179,10 +179,10 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <div
               className="relative"
-              style={{ height: "60px", width: "200px" }}
+              style={{ height: "150px", width: "200px" }}
             >
               <Image
-                src="/images/mettlogo11.png"
+                src="/images/navlogo1.png"
                 alt="Matt Vatcher — Toronto's Running Realtor"
                 fill
                 style={{
