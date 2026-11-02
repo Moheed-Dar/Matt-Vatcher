@@ -602,7 +602,7 @@ export default function About() {
                     style={{ backgroundColor: PINK }}
                   />
                   <p className="text-[10px] sm:text-xs font-bold uppercase tracking-wider" style={{ color: CYAN }}>
-                   TORONTO'S RUNNING REALTOR@ REAL ESTATE HOMEWARD
+                   TORONTO'S RUNNING REALTOR® REAL ESTATE HOMEWARD
                   </p>
                 </div>
               </motion.div>

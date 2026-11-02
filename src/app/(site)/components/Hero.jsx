@@ -329,7 +329,7 @@ export default function HeroSection() {
               border: `1px solid ${CYAN}40`,
             }}
           >
-            ( TORONTO&apos;S RUNNING REALTOR@ )
+            ( TORONTO&apos;S RUNNING REALTOR® )
           </span>
 
           {/* Main Heading */}
